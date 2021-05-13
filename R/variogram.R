@@ -163,16 +163,16 @@ variogram <- function(data, phylo, weights = "BM", complete = TRUE, progress = T
 
 plot.variogram <- function(x, ...){
   
-  plot(y = x$Gamma,
-       x = x$Distance,
+  plot(y = x@Gamma,
+       x = x@Distance,
        ylab = expression(paste(gamma, "( ", tau, " )")),
        xlab = "Phylogentic Distance",
        type = "l",
        ...)
-  polygon(c(x$Distance,rev(x$Distance)),
-          c(x$CI_max,rev(x$CI_min)),
+  polygon(c(x@Distance,rev(x@Distance)),
+          c(x@CI_max,rev(x@CI_min)),
           col="grey85",
           border = NA)
-  lines(y = x$Gamma,
-        x = x$Distance)
+  lines(y = x@Gamma,
+        x = x@Distance)
 }
