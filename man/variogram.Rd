@@ -49,7 +49,7 @@ data(musteloids)
 SSD <- moid_traits$SSD
 
 #Calculate variogram
-SVF <- phylo.vg(SSD, musteloids)
+SVF <- variogram(SSD, musteloids)
 
 #Plot the variogram
 plot(SVF)
