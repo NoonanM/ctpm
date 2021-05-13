@@ -37,13 +37,13 @@ Returns a variogram object (class variogram) which is a dataframe containing the
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{ \code{vignette("variogram")}, \code{\link{plot.variogram}} \code{\link{nclass.scott}} . }
+\seealso{ \code{vignette("variogram")}, \code{\link{plot.variogram}}, \code{\link{nclass.scott}}. }
 
 \examples{
 #Load package and data
 library(ctpm)
 data("moid_traits")
-data(musteloids)
+data("musteloids")
 
 #Extract the trait of interest from the full dataset
 SSD <- moid_traits$SSD
