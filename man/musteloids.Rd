@@ -21,7 +21,7 @@
 %%  ~~ possibly secondary sources and usages ~~
 %}
 
-%\references{
+\references{
 Law, Chris J. and Slater, Graham J. and Mehta, Rita S. (2017). Lineage Diversity and Size Disparity in Musteloidea: Testing Patterns of Adaptive Radiation Using Molecular and Fossil-Based Methods. Systematic Biology, 67(1), 127-144. \doi{10.1093/sysbio/syx047}.
 }
 
