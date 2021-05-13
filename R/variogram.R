@@ -1,6 +1,6 @@
 
 variogram <- function(data, phylo, weights = "BM", complete = TRUE, progress = TRUE, level = 0.95){
-
+  
   SPECIES <- phylo$tip.label
   names(data) <- SPECIES
   
@@ -37,7 +37,7 @@ variogram <- function(data, phylo, weights = "BM", complete = TRUE, progress = T
     
     #Check for lags without data. Happens when complete = FALSE
     if(nrow(SUB) >0){
-
+      
       
       #######################################################
       ##########        Calculate the weights       #########
@@ -147,10 +147,10 @@ variogram <- function(data, phylo, weights = "BM", complete = TRUE, progress = T
     } #Closes the check for any data in the lag
   }
   
-  SVF <- new.variogram(Distance = TAU,
-                       Gamma = GAMMA,
-                       CI_min = CI_min,
-                       CI_max = CI_max)
+  SVF <- data.frame(Distance = TAU,
+                    Gamma = GAMMA,
+                    CI_min = CI_min,
+                    CI_max = CI_max)
   
   SVF <- new.variogram(SVF)
   
