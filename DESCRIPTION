@@ -4,7 +4,7 @@ Version: 0.0.1
 Date: 2021-05-13
 Title: Continuous-Time Phylogenetic Modeling
 Authors@R: c(person(c("Michael","J."),"Noonan",email="michael.noonan@ubc.ca",role=c("aut","cre")),
-             person(c("Christen","H."),"Fleming",email="flemingc@si.edu",role="aut")
+             person(c("Christen","H."),"Fleming",email="flemingc@si.edu",role="aut"))
 URL: https://github.com/NoonanM/ctpm,
 Depends: R (>= 4.0.2)
 Imports: ape, nlme, progress, ctmm, graphics, grDevices, methods, stats, utils
