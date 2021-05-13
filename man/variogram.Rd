@@ -16,10 +16,10 @@ variogram(data, phylo, weights = "BM", complete = TRUE, progress = TRUE, level =
   \item{phylo}{An object of class 'phylo'.}
   \item{weights}{The weights to apply. Can be one of \code{IID}, \code{BM}.}
   \item{complete}{A logical value indicating whether the semi-variance is to be calculated across all possible lags. Defalts to \code{TRUE}}
-  \item{progress}{A logical value indicating whether to include a progress bar.
-  \item{level}{Confidence level of confidence bands (95% default CIs)}.
+  \item{progress}{A logical value indicating whether to include a progress bar.}
+  \item{level}{Confidence level of confidence bands (95\% default CIs)}.
   }
-}
+
 \details{
 For highly irregularly phylogenetic distances with few species, it may be useful to set \code{complete = FALSE} to coarsen the variogram. When this is the cases, species are binned across lags, with the number of lags estimated using \code{nclass.scott}.
 }
