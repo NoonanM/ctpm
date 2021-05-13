@@ -1,3 +1,0 @@
-#VARIOGRAM FUNCTIONS
-export(variogram)
-S3method(plot,variogram)
