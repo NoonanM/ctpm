@@ -21,7 +21,7 @@
 %%  ~~ possibly secondary sources and usages ~~
 %}
 
-%\references{
+\references{
 Noonan, M. J., Johnson, P. J., Kitchener, A. C., Harrington, L. A., Newman, C., and Macdonald, D. W. (2016). Sexual size dimorphism in musteloids: An anomalous allometric pattern is explained by feeding ecology. Ecology and evolution, 6(23), 8495-8501. \doi{10.1002/ece3.2480}.
 }
 
