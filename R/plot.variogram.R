@@ -29,7 +29,7 @@ svf.func <- function(CTPM)
     acf <- function(t){ 1-t }
     acf.grad <- function(t){ NULL }
     SVF <- function(t){ t * sigma}
-    COV <- as.numeric(CTPM$beta_primary$vcov)
+    COV <- as.numeric(CTPM$beta_primary$vcov) * sigma
     # variance of SVF
     VAR <- function(t)
     { t^2 * COV }
