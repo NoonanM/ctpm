@@ -32,7 +32,7 @@ svf.func <- function(CTPM)
     COV <- unname(CTPM$beta_primary$vcov)
     # variance of SVF
     VAR <- function(t)
-    { (sigma/t)^2 * COV }
+    { t^2 * COV }
     
   }
   else if(any(class(CTPM) == "slouch") && length(CTPM$evolpar) == 2) # OU
@@ -45,8 +45,7 @@ svf.func <- function(CTPM)
     COV <- unname(CTPM$beta_primary$vcov)
     # variance of SVF
     VAR <- function(t)
-      
-    { ((1 - exp(-(t/tau))) / (sigma * (exp(-(t/tau)) * (1/tau))))^2 * COV }
+    { (1 - exp(-(t/tau)))^2 * COV }
   }
   
   # finish off a few pieces
