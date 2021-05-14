@@ -178,7 +178,7 @@ plot.variogram <- function(x, CTPM = NULL, col="black", col.ctpm = "red", units 
   plot(y = x$Gamma,
        x = x$Distance,
        ylab = expression(paste(gamma, "( ", tau, " )")),
-       xlab = paste("Phylogentic Distance", units),
+       xlab = paste("Phylogentic Distance (", units, ")", sep = ""),
        type = "l",
        col = col,
        ...)
