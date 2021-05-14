@@ -51,17 +51,9 @@ svf.func <- function(CTPM)
   # finish off a few pieces
   ACF <- function(t) { acf(t) }
   grad <- function(t,...) { c(svf(t)/sigma, -sigma*acf.grad(t)) }
-  
-  
-  # variance of SVF
-  # VAR <- function(t)
-  # {
-  #   g <- grad(t)
-  #   return( c(g %*% COV %*% g) ) 
-  # }
+
   
   # chi-square effective degrees of freedom
-  # DOF <- function(t,error=0) { return( 2*SVF(t,error=error)^2/VAR(t,error=error) ) }
   DOF <- function(t) { return( 2*SVF(t)^2/VAR(t) ) }
   
   return(list(svf=SVF,VAR=VAR,DOF=DOF,ACF=ACF))
