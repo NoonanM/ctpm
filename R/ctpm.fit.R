@@ -2,7 +2,7 @@ ctpm.fit <- function(data, phylo, model = NULL){
   
   #Fit an IID model
   if(model == "IID"){
-    FIT <- nlme::gls(data ~ 1)
+    FIT <- lm(data ~ 1)
   }
   
   

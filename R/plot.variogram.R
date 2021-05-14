@@ -11,11 +11,17 @@ svf.func <- function(CTPM)
   # FIRST CONSTRUCT STANDARD ACF AND ITS PARAMTER GRADIENTS
   if(any(class(CTPM) == "gls")) # IID
   {
-    sigma <- CTPM$sigma^2
+    sigma <- summary(CTPM)$sigma^2
     acf <- function(t){ if(t==0) {1} else {0} }
     acf.grad <- function(t){ NULL }
     SVF <- function(t){if(t==0) {0} else {sigma} }
-    COV <- CTPM$varBeta
+    COV <- summary(CTPM)$cov.unscaled * summary(CTPM)$sigma^2
+    # variance of SVF
+    VAR <- function(t)
+    {
+      msm::deltamethod (~ x1, t, COV) 
+    }
+    
   }
   else if(any(class(CTPM) == "slouch") && length(CTPM$evolpar) == 1) # BM
   {
@@ -23,7 +29,11 @@ svf.func <- function(CTPM)
     acf <- function(t){ 1-t }
     acf.grad <- function(t){ NULL }
     SVF <- function(t){ t * sigma}
-    COV <- CTPM$beta_primary$vcov
+    COV <- as.numeric(CTPM$beta_primary$vcov * sigma)
+    # variance of SVF
+    VAR <- function(t)
+    { t^2 * COV }
+    
   }
   else if(any(class(CTPM) == "slouch") && length(CTPM$evolpar) == 2) # OU
   {
@@ -32,7 +42,10 @@ svf.func <- function(CTPM)
     acf <- function(t){ exp(-t/tau) }
     acf.grad <- function(t){ t/tau^2*acf(t) }
     SVF <- function(t){sigma * (1 - exp(-(t/tau)))}
-    COV <- CTPM$beta_primary$vcov
+    COV <- as.numeric(CTPM$beta_primary$vcov * sigma)
+    # variance of SVF
+    VAR <- function(t)
+    { (1 - exp(-(t/tau)))^2 * COV }
   }
   
   # finish off a few pieces
@@ -41,11 +54,11 @@ svf.func <- function(CTPM)
   
   
   # variance of SVF
-  VAR <- function(t)
-  {
-    g <- grad(t)
-    return( c(g %*% COV %*% g) ) 
-  }
+  # VAR <- function(t)
+  # {
+  #   g <- grad(t)
+  #   return( c(g %*% COV %*% g) ) 
+  # }
   
   # chi-square effective degrees of freedom
   # DOF <- function(t,error=0) { return( 2*SVF(t,error=error)^2/VAR(t,error=error) ) }
@@ -87,18 +100,18 @@ plot.svf <- function(lag,CTPM,alpha=0.05,col="red",type="l",...)
   # { graphics::points(lag,SVF(lag,error),col=col,type=type,...) }
   
   # confidence intervals if COV provided
-    # SVF <- Vectorize(function(t){ svf(t) })(lag)
-    # 
-    # for(j in 1:length(alpha))
-    # {
-    #   # dof <- Vectorize(function(t,error=e0) { DOF(t,error=error) })(lag,error)
-    #   dof <- Vectorize(function(t) { DOF(t) })(lag)
-    #   svf.lower <- Vectorize(function(df){ ctmm:::CI.lower(df,alpha[j]) })(dof)
-    #   svf.upper <- Vectorize(function(df){ ctmm:::CI.upper(df,alpha[j]) })(dof)
-    #   
-    #   graphics::polygon(c(lag,rev(lag)),c(SVF*svf.lower,rev(SVF*svf.upper)),col=malpha(col,0.1/length(alpha)),border=NA)
-    # }
-    # 
+    SVF <- Vectorize(function(t){ svf(t) })(lag)
+
+    for(j in 1:length(alpha))
+    {
+      # dof <- Vectorize(function(t,error=e0) { DOF(t,error=error) })(lag,error)
+      dof <- Vectorize(function(t) { DOF(t) })(lag)
+      svf.lower <- Vectorize(function(df){ ctmm:::CI.lower(df,alpha[j]) })(dof)
+      svf.upper <- Vectorize(function(df){ ctmm:::CI.upper(df,alpha[j]) })(dof)
+
+      graphics::polygon(c(lag,rev(lag)),c(SVF*svf.lower,rev(SVF*svf.upper)),col=ctmm:::malpha(col,0.1/length(alpha)),border=NA)
+    }
+
 }
 
 
@@ -180,7 +193,7 @@ plot.variogram <- function(x, CTPM = NULL, col="black", col.ctpm = "red", xlim=N
     col.ctpm <- array(col.ctpm,m)
     
     for(i in 1:m){
-    plot.svf(lag, CTPM[[m]], col=col.ctpm[[i]])
+    plot.svf(lag, CTPM[[i]], col=col.ctpm[[i]])
     }
   }
 }
