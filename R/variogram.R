@@ -200,7 +200,7 @@ plot.variogram <- function(x, CTPM = NULL, col="black", col.ctpm = "red", ...){
     # Check which model we're working with and plot accordingly
     
     #IID
-    if(any(class(CTPM) == "gls") && length(CTPM$evolpar) == 1){
+    if(class(CTPM) == "gls"){
       lines(y = rep(CTPM$sigma^2,
                     length(TAU+1)),
             x =  TAU,
