@@ -157,17 +157,14 @@ plot.variogram <- function(x, CTPM = NULL, col="black", col.ctpm = "red", xlim=N
   # fix base plot layer
   plot(xlim,ylim, xlim=xlim, ylim=ylim, xlab=xlab, ylab=ylab, col=grDevices::rgb(1,1,1,0), ...)
   
-  plot(y = x$Gamma,
-       x = x$Distance,
-       ylab = expression(paste(gamma, "( ", tau, " )")),
-       xlab = paste("Phylogentic Distance (", units, ")", sep = ""),
-       type = "l",
-       col = col,
-       ...)
+
+  #ADD CIs
   polygon(c(x[[1]]$Distance,rev(x[[1]]$Distance)),
           c(x[[1]]$CI_max,rev(x[[1]]$CI_min)),
           col="grey85",
           border = NA)
+  
+  #ADD POINT ESTIMATE
   lines(y = x[[1]]$Gamma,
         x = x[[1]]$Distance,
         col = col)
