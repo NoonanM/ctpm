@@ -174,8 +174,9 @@ plot.variogram <- function(x, CTPM = NULL, col="black", col.ctpm = "red", xlim=N
   #If there's a model, add it to the plot
   if(!is.null(CTPM)){
     
-    for(i in 1:m){
     lag <- x[[i]]$Distance
+    
+    for(i in 1:m){
     plot.svf(lag, CTPM[[m]], col=col.ctpm[[i]])
     }
   }
