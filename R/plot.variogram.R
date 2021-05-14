@@ -9,7 +9,7 @@ svf.func <- function(CTPM)
 {
   
   # FIRST CONSTRUCT STANDARD ACF AND ITS PARAMTER GRADIENTS
-  if(any(class(CTPM) == "gls")) # IID
+  if(any(class(CTPM) == "lm")) # IID
   {
     sigma <- summary(CTPM)$sigma^2
     acf <- function(t){ if(t==0) {1} else {0} }
