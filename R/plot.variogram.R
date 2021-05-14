@@ -19,7 +19,7 @@ svf.func <- function(CTPM)
     # variance of SVF
     VAR <- function(t)
     {
-      msm::deltamethod (~ x1, t, COV) 
+      { 1^2 * COV }
     }
     
   }
