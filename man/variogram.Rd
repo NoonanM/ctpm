@@ -31,9 +31,9 @@ Returns a variogram object (class variogram) which is a dataframe containing the
  M. J. Noonan, W. F. Fagan, and C. H. Fleming (in prep.) ``A semi-variance approach to visualising phylogenetic autocorrelation''.
 }
 
-\author{ M. J. Noonan. }
+\author{ M. J. Noonan, C. H. Fleming.}
 
-\note{ Can be slow on very large phylogenies. }
+\note{ Can be slow on very large phylogenies.}
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 

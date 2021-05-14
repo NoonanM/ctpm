@@ -161,7 +161,7 @@ variogram <- function(data, phylo, weights = "BM", complete = TRUE, progress = T
 ##############
 # Function for plotting the variograms
 
-plot.variogram <- function(x, ...){
+plot.variogram <- function(x, CTPM = NULL, col="black", ...){
   
   plot(y = x$Gamma,
        x = x$Distance,
@@ -174,5 +174,6 @@ plot.variogram <- function(x, ...){
           col="grey85",
           border = NA)
   lines(y = x$Gamma,
-        x = x$Distance)
+        x = x$Distance,
+        col = col)
 }
