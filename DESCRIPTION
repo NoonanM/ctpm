@@ -7,8 +7,8 @@ Authors@R: c(person(c("Michael","J."),"Noonan",email="michael.noonan@ubc.ca",rol
              person(c("Christen","H."),"Fleming",email="flemingc@si.edu",role="aut"))
 URL: https://github.com/NoonanM/ctpm,
 Depends: R (>= 4.0.2)
-Imports: ape, nlme, progress, ctmm, graphics, grDevices, methods, stats, utils
-Suggests: phytools, viridis, slouch
+Imports: ape, nlme, progress, ctmm, graphics, grDevices, methods, stats, utils, slouch
+Suggests: phytools, viridis
 Description: Functions for identifying, fitting, and applying continuous-time stochastic models to phylogenetic data.
   The package is based on methods introduced in
   Fleming et al (2014) <doi:10.1086/675504>.
