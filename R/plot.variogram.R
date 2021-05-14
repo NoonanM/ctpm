@@ -176,6 +176,9 @@ plot.variogram <- function(x, CTPM = NULL, col="black", col.ctpm = "red", xlim=N
     
     lag <- x[[1]]$Distance
     
+    # color array for plots
+    col.ctpm <- array(col.ctpm,m)
+    
     for(i in 1:m){
     plot.svf(lag, CTPM[[m]], col=col.ctpm[[i]])
     }
