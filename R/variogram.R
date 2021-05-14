@@ -194,7 +194,7 @@ plot.variogram <- function(x, CTPM = NULL, col="black", col.ctpm = "red", ...){
   if(!is.null(CTPM)){
     
     #Range of the variogram
-    RANGE <- range(x$Dist)
+    RANGE <- c(0, max(x$Dist))
     
     #Sequence of time lags to plot over for lines()
     TAU <- seq(RANGE[1], RANGE[2], 0.001)
