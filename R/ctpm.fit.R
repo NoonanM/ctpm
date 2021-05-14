@@ -10,14 +10,16 @@ ctpm.fit <- function(data, phylo, model = NULL){
   if(model == "BM"){
     FIT <- slouch::brown.fit(phy = phylo,
                             species = phylo$tip.label,
-                            response = data)
+                            response = data,
+                            hessian = T)
   }
   
   #Fit the OU model
   if(model == "OU"){
     FIT <- slouch::slouch.fit(phy = phylo,
                              species = phylo$tip.label,
-                             response = data)
+                             response = data,
+                             hessian = T)
   }
   
   #Return the fitted model
