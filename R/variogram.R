@@ -1,6 +1,12 @@
 
 variogram <- function(data, phylo, weights = "BM", complete = TRUE, progress = TRUE, level = 0.95){
   
+  #For testing
+  data("moid_traits")
+  data("musteloids")
+  data <- moid_traits$SSD
+  phylo <- musteloids
+  
   SPECIES <- phylo$tip.label
   names(data) <- SPECIES
   
@@ -11,9 +17,13 @@ variogram <- function(data, phylo, weights = "BM", complete = TRUE, progress = T
   if(complete){
     TAU <- unique(DISTS$Freq)
   } else {
-    TAU <- seq(min(DISTS$Freq),
-               max(DISTS$Freq),
-               length.out = nclass.scott(DISTS$Freq))
+    TAU <- unique(DISTS$Freq)
+    TAU <- sort(kmeans(TAU, centers = round(sqrt(length(TAU))+1))$centers[,1])
+    
+    
+    # TAU <- seq(min(DISTS$Freq),
+    #            max(DISTS$Freq),
+    #            length.out = nclass.scott(DISTS$Freq))
   }
   
   
