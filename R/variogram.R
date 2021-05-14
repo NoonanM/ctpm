@@ -17,7 +17,7 @@ variogram <- function(data, phylo, weights = "BM", complete = TRUE, progress = T
   if(complete){
     TAU <- unique(DISTS$Freq)
   } else {
-    TAU <- unique(DISTS$Freq)
+    TAU <- DISTS$Freq
     TAU <- sort(kmeans(TAU, centers = round(sqrt(length(TAU))+1))$centers[,1])
     
     
