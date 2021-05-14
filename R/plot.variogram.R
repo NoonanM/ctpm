@@ -148,7 +148,7 @@ plot.variogram <- function(x, CTPM = NULL, col="black", col.ctpm = "red", xlim=N
     max.lag <- fraction*max.lag
     
     # subset all data to fraction of total period
-    if(fraction<1) { x <- lapply(x, function(y) { y[y$lag<=max.lag,] }) }
+    #if(fraction<1) { x <- lapply(x, function(y) { y[y$Distance<=max.lag,] }) }
     
     xlim <- c(0,max.lag)
   }
