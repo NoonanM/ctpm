@@ -2,10 +2,10 @@
 variogram <- function(data, phylo, weights = "BM", complete = TRUE, progress = TRUE, level = 0.95){
   
   #For testing
-  data("moid_traits")
-  data("musteloids")
-  data <- moid_traits$SSD
-  phylo <- musteloids
+  # data("moid_traits")
+  # data("musteloids")
+  # data <- moid_traits$SSD
+  # phylo <- musteloids
   
   SPECIES <- phylo$tip.label
   names(data) <- SPECIES
