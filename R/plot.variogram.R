@@ -15,7 +15,7 @@ svf.func <- function(CTPM)
     acf <- function(t){ if(t==0) {1} else {0} }
     acf.grad <- function(t){ NULL }
     SVF <- function(t){if(t==0) {0} else {sigma} }
-    COV <- summary(CTPM)$cov.unscaled * summary(CTPM)$sigma^2
+    COV <- unname(vcov(FIT))
     # variance of SVF
     VAR <- function(t)
     {
