@@ -168,6 +168,7 @@ plot.variogram <- function(x, CTPM = NULL, col="black", ...){
        ylab = expression(paste(gamma, "( ", tau, " )")),
        xlab = "Phylogentic Distance",
        type = "l",
+       col = col,
        ...)
   polygon(c(x$Distance,rev(x$Distance)),
           c(x$CI_max,rev(x$CI_min)),
