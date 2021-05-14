@@ -7,14 +7,15 @@
 Produces plots of varigram objects (semi-variance vs. time lag) and model semi-variance functions, with approximate confidence intervals around the semi-variance estimates.
 }
 \usage{
-plot(x, CTPM=NULL, col="black", col.ctpm = "red", ...)
+plot(x, CTPM=NULL, col="black", col.ctpm = "red", units = "Ma", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{A variogram object calculated using \code{\link{variogram}}.}
-  \item{CTPM}{A ctpm model object in the same format as the output of ctpm.fit. Not currently supported.}
+  \item{CTPM}{A ctpm model object in the same format as the output of ctpm.fit.}
   \item{col}{Color for the empirical variogram.}
-  \item{col.ctpm}{Color for the model. Not currently supported.}
+  \item{col.ctpm}{Color for the model.}
+  \item{units}{Character denoting the unit of time for the branch lengths. Defaults to million years from the present.}
   \item{\dots}{ Additional \code{plot} function parameters.}
   }
 

@@ -173,12 +173,12 @@ variogram <- function(data, phylo, weights = "BM", complete = TRUE, progress = T
 ##############
 # Function for plotting the variograms
 
-plot.variogram <- function(x, CTPM = NULL, col="black", col.ctpm = "red", ...){
+plot.variogram <- function(x, CTPM = NULL, col="black", col.ctpm = "red", units = "Ma",...){
   
   plot(y = x$Gamma,
        x = x$Distance,
        ylab = expression(paste(gamma, "( ", tau, " )")),
-       xlab = "Phylogentic Distance",
+       xlab = paste("Phylogentic Distance", units),
        type = "l",
        col = col,
        ...)
