@@ -171,7 +171,7 @@ variogram <- function(data, phylo, weights = "BM", complete = TRUE, progress = T
 ##############
 # Function for plotting the variograms
 
-plot.variogram <- function(x, CTPM = NULL, col="black", ...){
+plot.variogram <- function(x, CTPM = NULL, col="black", col.ctpm = "red", ...){
   
   plot(y = x$Gamma,
        x = x$Distance,
@@ -187,4 +187,38 @@ plot.variogram <- function(x, CTPM = NULL, col="black", ...){
   lines(y = x$Gamma,
         x = x$Distance,
         col = col)
+  
+  #If there's a model, add it to the plot
+  if(!is.null(CTPM)){
+    
+    #Range of the variogram
+    RANGE <- range(x$Dist)
+    
+    #Sequence of time lags to plot over for lines()
+    TAU <- seq(RANGE[1], RANGE[2], 0.001)
+    
+    # Check which model we're working with and plot accordingly
+    
+    #IID
+    if(any(class(FIT) == "gls") && length(FIT$evolpar) == 1){
+      lines(y = rep(FIT$sigma^2,
+                    length(TAU+1)),
+            x =  TAU,
+            col = col.ctpm)
+      lines(y = seq(0, FIT$sigma^2,
+                    length.out = 5),
+            x =  rep(0,5), col = col.ctpm)
+    }
+    
+    #BM
+    if(any(class(FIT) == "slouch") && length(FIT$evolpar) == 1){
+      lines(y = (TAU*FIT$evolpar$sigma2_y), x = TAU, col = col.ctpm)
+    }
+    
+    #OU
+    if(any(class(FIT) == "slouch") && length(FIT$evolpar) == 2){
+      lines(y = FIT$evolpar$vy * (1 - exp(-(TAU/FIT$evolpar$hl))),
+            x =  TAU, col = col.ctpm)
+    }
+  }
 }
