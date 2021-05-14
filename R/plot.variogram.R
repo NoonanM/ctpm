@@ -15,7 +15,7 @@ svf.func <- function(CTPM)
     acf <- function(t){ if(t==0) {1} else {0} }
     acf.grad <- function(t){ NULL }
     SVF <- function(t){if(t==0) {0} else {sigma} }
-    COV <- unname(vcov(FIT))
+    COV <- as.numeric(vcov(FIT))
     # variance of SVF
     VAR <- function(t)
     {
@@ -29,7 +29,7 @@ svf.func <- function(CTPM)
     acf <- function(t){ 1-t }
     acf.grad <- function(t){ NULL }
     SVF <- function(t){ t * sigma}
-    COV <- CTPM$beta_primary$vcov
+    COV <- as.numeric(CTPM$beta_primary$vcov)
     # variance of SVF
     VAR <- function(t)
     { t^2 * COV }
@@ -42,7 +42,7 @@ svf.func <- function(CTPM)
     acf <- function(t){ exp(-t/tau) }
     acf.grad <- function(t){ t/tau^2*acf(t) }
     SVF <- function(t){sigma * (1 - exp(-(t/tau)))}
-    COV <- CTPM$beta_primary$vcov
+    COV <- as.numeric(CTPM$beta_primary$vcov)
     # variance of SVF
     VAR <- function(t)
     { (1 - exp(-(t/tau)))^2 * COV }
