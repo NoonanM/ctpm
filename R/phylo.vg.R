@@ -1,5 +1,5 @@
 
-variogram <- function(data, phylo, weights = "BM", complete = TRUE, progress = TRUE, level = 0.95){
+phylo.vg <- function(data, phylo, weights = "BM", complete = TRUE, progress = TRUE, level = 0.95){
   
   #For testing
   # data("moid_traits")
@@ -33,6 +33,8 @@ variogram <- function(data, phylo, weights = "BM", complete = TRUE, progress = T
   GAMMA <- vector("numeric", length(TAU))
   CI_min <- vector("numeric", length(TAU))
   CI_max <- vector("numeric", length(TAU))
+  VAR <- vector("numeric", length(TAU))
+  DOF <- vector("numeric", length(TAU))
   
   if(progress){
     pb <- txtProgressBar(min = 0, max = length(TAU)-1, style = 3)
@@ -145,7 +147,9 @@ variogram <- function(data, phylo, weights = "BM", complete = TRUE, progress = T
       
       
       #Variance
-      VAR <- 2 * (t(W) %*% COV %*% W) * (GAMMA[k])^2
+      VAR[k] <- 2 * (t(W) %*% COV %*% W) * (GAMMA[k])^2
+      
+      DOF[k] <- 2*GAMMA[k]^2/VAR[k]
       
       #Chi square CI
       CIs <- ctmm:::chisq.ci(MLE = GAMMA[k], VAR = VAR, level = level)
@@ -159,12 +163,16 @@ variogram <- function(data, phylo, weights = "BM", complete = TRUE, progress = T
     } #Closes the check for any data in the lag
   }
   
-  SVF <- data.frame(Distance = TAU,
-                    Gamma = GAMMA,
-                    CI_min = CI_min,
-                    CI_max = CI_max)
+  SVF <- data.frame(SVF=GAMMA,DOF=DOF,lag=TAU)
   
-  SVF <- new.variogram(SVF)
+  # SVF <- data.frame(Distance = TAU,
+  #                   Gamma = GAMMA,
+  #                   CI_min = CI_min,
+  #                   CI_max = CI_max)
+  
+  SVF <- ctmm:::new.variogram(SVF)
+  
+  SVF@info$axes <- "x"
   
   return(SVF)
 }

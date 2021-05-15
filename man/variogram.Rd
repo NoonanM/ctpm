@@ -1,5 +1,5 @@
-\name{variogram}
-\alias{variogram}
+\name{phylo.vg}
+\alias{phylo.vg}
 \encoding{UTF-8}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Calculate an empirical variogram from phylogenetic data}
@@ -37,7 +37,7 @@ Returns a variogram object (class variogram) which is a dataframe containing the
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{ \code{vignette("variogram")}, \code{\link{plot.variogram}}, \code{\link{nclass.scott}}. }
+\seealso{ \code{vignette("phylo.vg")}, \code{\link{plot.variogram}}, \code{\link{kmeans}}. }
 
 \examples{
 #Load package and data
