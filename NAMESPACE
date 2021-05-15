@@ -1,6 +1,6 @@
 #VARIOGRAM FUNCTIONS
-export(variogram)
-S3method(plot,variogram)
+export(phylo.vg)
+#S3method(plot,variogram)
 
 #MODEL FITTING FUNCTIONS
 export(ctpm.fit)
