@@ -1,5 +1,5 @@
 
-variogram <- function(data, phylo, weights = "BM", complete = TRUE, progress = TRUE, level = 0.95, units = "Ma"){
+variogram <- function(data, phylo, weights = "BM", complete = FALSE, progress = TRUE, level = 0.95, units = "Ma", ...){
   
   #For testing
   # data("moid_traits")
@@ -20,8 +20,7 @@ variogram <- function(data, phylo, weights = "BM", complete = TRUE, progress = T
   } else {
     TAU <- DISTS$Freq
     TAU <- sort(kmeans(TAU,
-                       centers = sqrt(length(TAU))+1,
-                       iter.max = 100)$centers[,1])
+                       centers = sqrt(length(TAU))+1, ...)$centers[,1])
   }
   
   

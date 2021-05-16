@@ -1,5 +1,5 @@
-\name{phylo.vg}
-\alias{phylo.vg}
+\name{variogram}
+\alias{variogram}
 \encoding{UTF-8}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Calculate an empirical variogram from phylogenetic data}
@@ -8,20 +8,21 @@ This function calculates the empirical variogram of phylogenetic data for visual
 One of three weighting algorithms can be used, based upon Noonan, Fagan, and Fleming (in prep).
 }
 \usage{
-variogram(data, phylo, weights = "BM", complete = TRUE, progress = TRUE, level = 0.95)
+variogram(data, phylo, weights = "BM", complete = FALSE, progress = TRUE, level = 0.95, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{data}{A vector of continuous species trait data. This vector needs to be of the same length and same order as phy$tip.label. }
   \item{phylo}{An object of class 'phylo'.}
   \item{weights}{The weights to apply. Can be one of \code{IID}, \code{BM}.}
-  \item{complete}{A logical value indicating whether the semi-variance is to be calculated across all possible lags. Defalts to \code{TRUE}}
+  \item{complete}{A logical value indicating whether the semi-variance is to be calculated across all possible lags. Defalts to \code{FALSE}}
   \item{progress}{A logical value indicating whether to include a progress bar.}
   \item{level}{Confidence level of confidence bands (95\% default CIs)}.
+  \item{\dots}{ Additional arguments passed to \code{kmeans}.}
   }
 
 \details{
-For highly irregularly phylogenetic distances with few species, it may be useful to set \code{complete = FALSE} to coarsen the variogram. When this is the cases, species are binned across lags, with the number of lags estimated using \code{nclass.scott}.
+For highly irregularly phylogenetic distances with few species, it may be useful to set \code{complete = FALSE} to coarsen the variogram. When this is the cases, species are binned across lags, with the number of lags estimated using \code{kmeans} clustering with n classes = \eqn{\sqrt(N)}.
 }
 
 \value{
@@ -37,7 +38,7 @@ Returns a variogram object (class variogram) which is a dataframe containing the
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{ \code{vignette("phylo.vg")}, \code{\link{plot.variogram}}, \code{\link{kmeans}}. }
+\seealso{ \code{vignette("variogram")}, \code{\link{plot.variogram}}, \code{\link{kmeans}}. }
 
 \examples{
 #Load package and data
