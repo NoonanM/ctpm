@@ -25,8 +25,6 @@ ctpm.fit <- function(data, phylo, model = NULL, units = "Ma"){
   #Fit the BM model
   if(model == "BM"){
     
-    phylo$edge.length <- phylo$edge.length %#% units
-    
     fit <- slouch::brown.fit(phy = phylo,
                             species = phylo$tip.label,
                             response = data,
@@ -34,7 +32,7 @@ ctpm.fit <- function(data, phylo, model = NULL, units = "Ma"){
     
     tau <- Inf; names(tau) <- "position"
     
-    COV <- -solve(fit$hessian)
+    COV <- -solve(fit$hessian) %#% units
     row.names(COV) <- "major"
     colnames(COV) <- "major"
     
@@ -65,7 +63,9 @@ ctpm.fit <- function(data, phylo, model = NULL, units = "Ma"){
     
     tau <- fit$evolpar$hl; names(tau) <- "position"
     
-    COV <- -solve(fit$hessian)
+    tau <- tau %#% units
+    
+    COV <- -solve(fit$hessian) %#% units
     
     #re-arrange
     COV_2 <- COV
