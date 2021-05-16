@@ -2,109 +2,59 @@
 ##############
 # Functions for plotting variograms
 
-#########
-# Generate SVF etc
-
-svf.func <- function(CTPM)
-{
-  
-  # FIRST CONSTRUCT STANDARD ACF AND ITS PARAMTER GRADIENTS
-  if(any(class(CTPM) == "lm")) # IID
-  {
-    sigma <- summary(CTPM)$sigma^2
-    acf <- function(t){ if(t==0) {1} else {0} }
-    acf.grad <- function(t){ NULL }
-    SVF <- function(t){if(t==0) {0} else {sigma} }
-    COV <- unname(vcov(FIT))
-    # variance of SVF
-    VAR <- function(t)
-    {
-      { 1^2 * COV }
-    }
-    
-  }
-  else if(any(class(CTPM) == "slouch") && length(CTPM$evolpar) == 1) # BM
-  {
-    sigma <- CTPM$evolpar$sigma2_y
-    acf <- function(t){ 1-t }
-    acf.grad <- function(t){ NULL }
-    SVF <- function(t){ t * sigma}
-    COV <- unname(CTPM$beta_primary$vcov)
-    # variance of SVF
-    VAR <- function(t)
-    { t^2 * COV }
-    
-  }
-  else if(any(class(CTPM) == "slouch") && length(CTPM$evolpar) == 2) # OU
-  {
-    sigma <- CTPM$evolpar$vy
-    tau <- CTPM$evolpar$hl
-    acf <- function(t){ exp(-t/tau) }
-    acf.grad <- function(t){ t/tau^2*acf(t) }
-    SVF <- function(t){sigma * (1 - exp(-(t/tau)))}
-    COV <- unname(CTPM$beta_primary$vcov)
-    # variance of SVF
-    VAR <- function(t)
-    { (1 - exp(-(t/tau)))^2 * COV }
-  }
-  
-  # finish off a few pieces
-  ACF <- function(t) { acf(t) }
-  grad <- function(t,...) { c(svf(t)/sigma, -sigma*acf.grad(t)) }
-
-  
-  # chi-square effective degrees of freedom
-  DOF <- function(t) { return( 2*SVF(t)^2/VAR(t) ) }
-  
-  return(list(svf=SVF,VAR=VAR,DOF=DOF,ACF=ACF))
-}
-
-
-##########
-plot.svf <- function(lag,CTPM,alpha=0.05,col="red",type="l",...)
-{
-  # changed from max lag to all lags
-  # changed from error=0 or number/logical to error=NULL or array
-  
-  # number of pixels across diagonal of display
-  PX <- ceiling(sqrt(sum(grDevices::dev.size("px")^2)))
-  
-  {
-    lag <- seq(0,ctmm:::last(lag),length.out=PX)
-    # error <- 0 -> e0
-  }
-  # else if(all(diff(error[-1])==0))
-  # { error <- error[2] -> e0 } # can still plot curve because all errors it the same
-  
-  SVF <- svf.func(CTPM)
-  svf <- SVF$svf
-  DOF <- SVF$DOF
-  
-  # point estimate plot
-  # SVF <- Vectorize(function(t,error=e0) { svf(t,error=error) })
-  SVF <- Vectorize(function(t) { svf(t) })
-  
-  lag[1] <- lag[2]/1000 # almost go to origin, but not quite to avoid nugget
-  
-  # if(length(error)==1) # can plot curve
-  { graphics::curve(SVF,from=0,to=ctmm:::last(lag),n=PX,add=TRUE,col=col,...) }
-  # else
-  # { graphics::points(lag,SVF(lag,error),col=col,type=type,...) }
-  
-  # confidence intervals if COV provided
-    SVF <- Vectorize(function(t){ svf(t) })(lag)
-
-    for(j in 1:length(alpha))
-    {
-      # dof <- Vectorize(function(t,error=e0) { DOF(t,error=error) })(lag,error)
-      dof <- Vectorize(function(t) { DOF(t) })(lag)
-      svf.lower <- Vectorize(function(df){ ctmm:::CI.lower(df,alpha[j]) })(dof)
-      svf.upper <- Vectorize(function(df){ ctmm:::CI.upper(df,alpha[j]) })(dof)
-
-      graphics::polygon(c(lag,rev(lag)),c(SVF*svf.lower,rev(SVF*svf.upper)),col=ctmm:::malpha(col,0.1/length(alpha)),border=NA)
-    }
-
-}
+# svf.func <- function(CTPM)
+# {
+#   
+#   # FIRST CONSTRUCT STANDARD ACF AND ITS PARAMTER GRADIENTS
+#   if(any(class(CTPM) == "lm")) # IID
+#   {
+#     sigma <- summary(CTPM)$sigma^2
+#     acf <- function(t){ if(t==0) {1} else {0} }
+#     acf.grad <- function(t){ NULL }
+#     SVF <- function(t){if(t==0) {0} else {sigma} }
+#     COV <- unname(vcov(FIT))
+#     # variance of SVF
+#     VAR <- function(t)
+#     {
+#       { 1^2 * COV }
+#     }
+#     
+#   }
+#   else if(any(class(CTPM) == "slouch") && length(CTPM$evolpar) == 1) # BM
+#   {
+#     sigma <- CTPM$evolpar$sigma2_y
+#     acf <- function(t){ 1-t }
+#     acf.grad <- function(t){ NULL }
+#     SVF <- function(t){ t * sigma}
+#     COV <- unname(CTPM$beta_primary$vcov)
+#     # variance of SVF
+#     VAR <- function(t)
+#     { t^2 * COV }
+#     
+#   }
+#   else if(any(class(CTPM) == "slouch") && length(CTPM$evolpar) == 2) # OU
+#   {
+#     sigma <- CTPM$evolpar$vy
+#     tau <- CTPM$evolpar$hl
+#     acf <- function(t){ exp(-t/tau) }
+#     acf.grad <- function(t){ t/tau^2*acf(t) }
+#     SVF <- function(t){sigma * (1 - exp(-(t/tau)))}
+#     COV <- unname(CTPM$beta_primary$vcov)
+#     # variance of SVF
+#     VAR <- function(t)
+#     { (1 - exp(-(t/tau)))^2 * COV }
+#   }
+#   
+#   # finish off a few pieces
+#   ACF <- function(t) { acf(t) }
+#   grad <- function(t,...) { c(svf(t)/sigma, -sigma*acf.grad(t)) }
+# 
+#   
+#   # chi-square effective degrees of freedom
+#   DOF <- function(t) { return( 2*SVF(t)^2/VAR(t) ) }
+#   
+#   return(list(svf=SVF,VAR=VAR,DOF=DOF,ACF=ACF))
+# }
 
 
 plot.variogram <- function(x, CTPM = NULL, col="black", col.ctpm = "red", xlim=NULL, ylim=NULL, ext=NULL, fraction = 1, units = "Ma",...){

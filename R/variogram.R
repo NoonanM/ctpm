@@ -1,5 +1,5 @@
 
-phylo.vg <- function(data, phylo, weights = "BM", complete = TRUE, progress = TRUE, level = 0.95){
+phylo.vg <- function(data, phylo, weights = "BM", complete = TRUE, progress = TRUE, level = 0.95, units = "Ma"){
   
   #For testing
   # data("moid_traits")
@@ -14,6 +14,7 @@ phylo.vg <- function(data, phylo, weights = "BM", complete = TRUE, progress = TR
   DISTS <- as.data.frame(as.table(cophenetic(phylo)))
   DISTS <- DISTS[order(DISTS$Freq),]
   
+  #Lag BINS
   if(complete){
     TAU <- unique(DISTS$Freq)
   } else {
@@ -21,11 +22,6 @@ phylo.vg <- function(data, phylo, weights = "BM", complete = TRUE, progress = TR
     TAU <- sort(kmeans(TAU,
                        centers = sqrt(length(TAU))+1,
                        iter.max = 100)$centers[,1])
-    
-    
-    # TAU <- seq(min(DISTS$Freq),
-    #            max(DISTS$Freq),
-    #            length.out = nclass.scott(DISTS$Freq))
   }
   
   
@@ -163,7 +159,10 @@ phylo.vg <- function(data, phylo, weights = "BM", complete = TRUE, progress = TR
     } #Closes the check for any data in the lag
   }
   
-  SVF <- data.frame(SVF=GAMMA,DOF=DOF,lag=TAU)
+  #Convert TAU for correct plotting
+  LAG <- TAU %#% units
+  
+  SVF <- data.frame(SVF=GAMMA,DOF=DOF,lag=LAG)
   
   # SVF <- data.frame(Distance = TAU,
   #                   Gamma = GAMMA,
