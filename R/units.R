@@ -17,7 +17,7 @@
     pow <- -1
   }
   
-  name <- canonical.name(name)
+  name <- ctmm:::canonical.name(name)
   
   # DIV <- grepl("/",name)
   # if(DIV)
@@ -33,7 +33,7 @@
   add <- function(a,s)
   {
     n <- length(alias)
-    alias[[n+1]] <<- canonical.name(a)
+    alias[[n+1]] <<- ctmm:::canonical.name(a)
     scale[n+1] <<- s
   }
   
