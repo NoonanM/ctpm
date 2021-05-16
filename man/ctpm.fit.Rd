@@ -11,7 +11,7 @@ variogram(data, phylo, model = NULL, units = "Ma")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{data}{A vector of continuous species trait data. This vector needs to be of the same length and same order as phy$tip.label. }
+  \item{data}{A vector of continuous species trait data. This vector needs to be of the same length and same order as phylo$tip.label. }
   \item{phylo}{An object of class 'phylo'.}
   \item{model}{The model to fit. Can be one of \code{"IID"}, \code{"BM"}, or \code{"OU"}.}
   \item{units}{A character defining the units of the edge lengths of the phylogentic tree.}

@@ -12,7 +12,7 @@ variogram(data, phylo, weights = "BM", complete = FALSE, progress = TRUE, level 
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{data}{A vector of continuous species trait data. This vector needs to be of the same length and same order as phy$tip.label. }
+  \item{data}{A vector of continuous species trait data. This vector needs to be of the same length and same order as phylo$tip.label. }
   \item{phylo}{An object of class 'phylo'.}
   \item{weights}{The weights to apply. Can be one of \code{IID}, \code{BM}.}
   \item{complete}{A logical value indicating whether the semi-variance is to be calculated across all possible lags. Defalts to \code{FALSE}}
