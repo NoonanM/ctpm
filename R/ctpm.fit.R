@@ -31,13 +31,14 @@ ctpm.fit <- function(data, phylo, model = NULL, units = "Ma"){
                             hessian = T)
     
     tau <- Inf; names(tau) <- "position"
+    SIGMA <- fit$evolpar$sigma2_y/ (1 %#% units)
     
-    COV <- -solve(fit$hessian) %#% units
+    COV <- -solve(fit$hessian)
     row.names(COV) <- "major"
     colnames(COV) <- "major"
     
     FIT <- ctmm::ctmm(mean = "stationary",
-                      sigma =  var(data),
+                      sigma =  SIGMA,
                       errors = FALSE,
                       mu = fit$beta_primary$coefficients[1],
                       tau = tau,
@@ -54,18 +55,15 @@ ctpm.fit <- function(data, phylo, model = NULL, units = "Ma"){
   #Fit the OU model
   if(model == "OU"){
     
-    phylo$edge.length <- phylo$edge.length %#% units
-    
     fit <- slouch::slouch.fit(phy = phylo,
                              species = phylo$tip.label,
                              response = data,
                              hessian = T)
     
     tau <- fit$evolpar$hl; names(tau) <- "position"
-    
     tau <- tau %#% units
     
-    COV <- -solve(fit$hessian) %#% units
+    COV <- -solve(fit$hessian)
     
     #re-arrange
     COV_2 <- COV
