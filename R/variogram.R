@@ -160,7 +160,7 @@ variogram <- function(data, phylo, weights = "BM", complete = TRUE, progress = T
   }
   
   #Convert TAU for correct plotting
-  LAG <- TAU %#% units
+  LAG <- TAU ctmm::%#% units
   
   SVF <- data.frame(SVF=GAMMA,DOF=DOF,lag=LAG)
   
