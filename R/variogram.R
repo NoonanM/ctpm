@@ -11,7 +11,7 @@ variogram <- function(data, phylo, weights = "BM", complete = FALSE, progress = 
   names(data) <- SPECIES
   
   #Get all pairwise phylogenetic distances
-  DISTS <- as.data.frame(as.table(cophenetic(phylo)))
+  DISTS <- as.data.frame(as.table(ape::cophenetic.phylo(phylo)))
   DISTS <- DISTS[order(DISTS$Freq),]
   
   #Lag BINS
