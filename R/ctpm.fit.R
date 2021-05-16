@@ -1,4 +1,4 @@
-ctpm.fit <- function(data, phylo, model = NULL){
+ctpm.fit <- function(data, phylo, model = NULL, units = "Ma"){
   
   #Fit an IID model
   if(model == "IID"){
@@ -24,6 +24,9 @@ ctpm.fit <- function(data, phylo, model = NULL){
   
   #Fit the BM model
   if(model == "BM"){
+    
+    phylo$edge.length <- phylo$edge.length %#% units
+    
     fit <- slouch::brown.fit(phy = phylo,
                             species = phylo$tip.label,
                             response = data,
@@ -52,6 +55,9 @@ ctpm.fit <- function(data, phylo, model = NULL){
   
   #Fit the OU model
   if(model == "OU"){
+    
+    phylo$edge.length <- phylo$edge.length %#% units
+    
     fit <- slouch::slouch.fit(phy = phylo,
                              species = phylo$tip.label,
                              response = data,
