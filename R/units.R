@@ -1,3 +1,14 @@
+UNITS <- list()
+UNITS$mean <- list()
+UNITS$mean$DAY <- 86400.002 # mean solar day
+UNITS$mean$YEAR <- 365.24217 * UNITS$mean$DAY # mean tropical year
+UNITS$mean$MONTH <- 2.8 + 60*( 44 + 60*( 12 + 24*29 ) ) # mean synodic month
+UNITS$calendar <- list()
+UNITS$calendar$DAY <- 86400
+UNITS$calendar$YEAR <- 365 * UNITS$calendar$DAY
+UNITS$calendar$MONTH <- 30 * UNITS$calendar$DAY
+
+
 # convert units
 `%#%` <- function(x,y)
 {
