@@ -1,5 +1,5 @@
 #VARIOGRAM FUNCTIONS
-export(phylo.vg)
+export(variogram)
 
 #MODEL FITTING FUNCTIONS
 export(ctpm.fit)
