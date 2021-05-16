@@ -148,10 +148,10 @@ variogram <- function(data, phylo, weights = "BM", complete = TRUE, progress = T
       DOF[k] <- 2*GAMMA[k]^2/VAR[k]
       
       #Chi square CI
-      CIs <- ctmm:::chisq.ci(MLE = GAMMA[k], VAR = VAR, level = level)
-      
-      CI_min[k] <- CIs[1]
-      CI_max[k] <- CIs[3]
+      # CIs <- ctmm:::chisq.ci(MLE = GAMMA[k], VAR = VAR, level = level)
+      # 
+      # CI_min[k] <- CIs[1]
+      # CI_max[k] <- CIs[3]
       
       
       #Update progress bar is turned on
