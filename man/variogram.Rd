@@ -26,7 +26,7 @@ For highly irregularly phylogenetic distances with few species, it may be useful
 }
 
 \value{
-Returns a variogram object (class variogram) which is a dataframe containing the time-lag, \code{Distance}, the semi-variance estimate at that lag, \code{Gamma}, and the upper and lower confidence intervals.
+Returns a variogram object (class variogram) which is a dataframe containing the time-lag, \code{lag}, the semi-variance estimate at that lag, \code{SVF}, and the degrees of freedom on the estimated semi-variance \code{DOF}.
 }
 \references{
  M. J. Noonan, W. F. Fagan, and C. H. Fleming (in prep.) ``A semi-variance approach to visualising phylogenetic autocorrelation''.
