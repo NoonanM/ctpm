@@ -168,7 +168,7 @@ variogram <- function(data, phylo, weights = "BM", complete = FALSE, progress = 
   #                   CI_min = CI_min,
   #                   CI_max = CI_max)
   
-  SVF <- ctmm:::new.variogram(SVF)
+  SVF <- new.variogram(SVF)
   
   SVF@info$axes <- "x"
   

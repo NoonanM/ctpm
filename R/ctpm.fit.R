@@ -2,11 +2,12 @@ ctpm.fit <- function(data, phylo, model = NULL, units = "Ma"){
   
   #Fit an IID model
   if(model == "IID"){
+    TIME <- 1/(1 %#% units)
+    
     fit <- lm(data ~ 1)
     COV <- matrix(vcov(fit))
     row.names(COV) <- "major"
     colnames(COV) <- "major"
-    
     FIT <- ctmm::ctmm(mean = "stationary",
                       sigma =  var(data),
                       errors = FALSE,
@@ -19,19 +20,25 @@ ctpm.fit <- function(data, phylo, model = NULL, units = "Ma"){
                       range = TRUE,
                       AIC = AIC(fit),
                       BIC = BIC(fit))
+    
+    FIT <- ctmm:::unit.ctmm(FIT,
+                            length = 1,
+                            time = TIME)
+    
   }
   
   
   #Fit the BM model
   if(model == "BM"){
+    TIME <- 1/(1 %#% units)
     
     fit <- slouch::brown.fit(phy = phylo,
-                            species = phylo$tip.label,
-                            response = data,
-                            hessian = T)
+                             species = phylo$tip.label,
+                             response = data,
+                             hessian = T)
     
     tau <- Inf; names(tau) <- "position"
-    SIGMA <- fit$evolpar$sigma2_y/ (1 %#% units)
+    SIGMA <- fit$evolpar$sigma2_y #/ (1 %#% units)
     
     COV <- -solve(fit$hessian)
     row.names(COV) <- "major"
@@ -50,18 +57,24 @@ ctpm.fit <- function(data, phylo, model = NULL, units = "Ma"){
                       AIC = fit$modfit$AIC,
                       BIC = NULL)
     
+    FIT <- ctmm:::unit.ctmm(FIT,
+                            length = 1,
+                            time= TIME)
+    
   }
   
   #Fit the OU model
   if(model == "OU"){
     
+    TIME <- 1/(1 %#% units)
+    
     fit <- slouch::slouch.fit(phy = phylo,
-                             species = phylo$tip.label,
-                             response = data,
-                             hessian = T)
+                              species = phylo$tip.label,
+                              response = data,
+                              hessian = T)
     
     tau <- fit$evolpar$hl; names(tau) <- "position"
-    tau <- tau %#% units
+    #tau <- tau %#% units
     
     COV <- -solve(fit$hessian)
     
@@ -84,6 +97,10 @@ ctpm.fit <- function(data, phylo, model = NULL, units = "Ma"){
                       range = TRUE,
                       AIC = fit$modfit$AIC,
                       BIC = NULL)
+    
+    FIT <- ctmm:::unit.ctmm(FIT,
+                            length = 1,
+                            time = TIME)
     
   }
   
