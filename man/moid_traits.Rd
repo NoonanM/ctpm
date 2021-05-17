@@ -33,7 +33,7 @@ library(ctpm)
 data("moid_traits")
 
 # Plot male mass versus female mass
-plot(moid_traits$Mass.M ~ Mass.F)
+plot(moid_traits$Mass.M ~ moid_traits$Mass.F)
 }
 
 \keyword{datasets}
