@@ -1,8 +1,8 @@
-ctpm.fit <- function(data, phylo, model = NULL, units = "Ma"){
+ctpm.fit <- function(data, phylo, model = NULL, time.units = "Ma"){
   
   #Fit an IID model
   if(model == "IID"){
-    TIME <- 1/(1 %#% units)
+    TIME <- 1/(1 %#% time.units)
     
     fit <- lm(data ~ 1)
     COV <- matrix(vcov(fit))
@@ -30,7 +30,7 @@ ctpm.fit <- function(data, phylo, model = NULL, units = "Ma"){
   
   #Fit the BM model
   if(model == "BM"){
-    TIME <- 1/(1 %#% units)
+    TIME <- 1/(1 %#% time.units)
     
     fit <- slouch::brown.fit(phy = phylo,
                              species = phylo$tip.label,
@@ -38,7 +38,7 @@ ctpm.fit <- function(data, phylo, model = NULL, units = "Ma"){
                              hessian = T)
     
     tau <- Inf; names(tau) <- "position"
-    SIGMA <- fit$evolpar$sigma2_y #/ (1 %#% units)
+    SIGMA <- fit$evolpar$sigma2_y
     
     COV <- -solve(fit$hessian)
     row.names(COV) <- "major"
@@ -66,7 +66,7 @@ ctpm.fit <- function(data, phylo, model = NULL, units = "Ma"){
   #Fit the OU model
   if(model == "OU"){
     
-    TIME <- 1/(1 %#% units)
+    TIME <- 1/(1 %#% time.units)
     
     fit <- slouch::slouch.fit(phy = phylo,
                               species = phylo$tip.label,

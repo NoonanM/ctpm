@@ -1,5 +1,5 @@
 
-variogram <- function(data, phylo, weights = "IID", complete = FALSE, units = "Ma", progress = TRUE,  ...){
+variogram <- function(data, phylo, weights = "IID", complete = FALSE, time.units = "Ma", trait.units = NULL,  progress = TRUE, ...){
   
   #For testing
   # data("moid_traits")
@@ -21,6 +21,9 @@ variogram <- function(data, phylo, weights = "IID", complete = FALSE, units = "M
     TAU <- DISTS$Freq
     TAU <- sort(kmeans(TAU,
                        centers = sqrt(length(TAU))+1, ...)$centers[,1])
+    
+    # Remove redundant means
+    TAU <- unique(TAU)
   }
   
   
@@ -127,7 +130,7 @@ variogram <- function(data, phylo, weights = "IID", complete = FALSE, units = "M
         ONE <- rep(1, nrow(COV))
         
         #Calculate the weights
-        W <- ctmm:::PDsolve(COV) %*% ONE # can switch to ctmm:::PDsolve if the behaviour of solve is not ideal
+        W <- ctmm:::PDsolve(COV) %*% ONE
         W <- W/sum(W)
         
       }
@@ -146,12 +149,6 @@ variogram <- function(data, phylo, weights = "IID", complete = FALSE, units = "M
       
       DOF[k] <- 2*GAMMA[k]^2/VAR[k]
       
-      #Chi square CI
-      # CIs <- ctmm:::chisq.ci(MLE = GAMMA[k], VAR = VAR, level = level)
-      # 
-      # CI_min[k] <- CIs[1]
-      # CI_max[k] <- CIs[3]
-      
       
       #Update progress bar is turned on
       if(progress){setTxtProgressBar(pb, k)}
@@ -159,7 +156,7 @@ variogram <- function(data, phylo, weights = "IID", complete = FALSE, units = "M
   }
   
   #Convert TAU for correct plotting
-  LAG <- TAU %#% units
+  LAG <- TAU %#% time.units
   
   SVF <- data.frame(SVF=GAMMA,DOF=DOF,lag=LAG)
   
@@ -170,7 +167,8 @@ variogram <- function(data, phylo, weights = "IID", complete = FALSE, units = "M
   
   SVF <- new.variogram(SVF)
   
-  SVF@info$axes <- "x"
+  #Set the units of the trait
+  if(is.null(trait.units)){SVF@info$axes <- "x"} else {SVF@info$axes <- trait.units}
   
   return(SVF)
 }

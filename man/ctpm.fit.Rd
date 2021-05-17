@@ -7,7 +7,7 @@
 This function is currently a wrapper for methods implemented in the package \code{\link{slouch}}.
 }
 \usage{
-variogram(data, phylo, model = NULL, units = "Ma")
+variogram(data, phylo, model = NULL, time.units = "Ma")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
