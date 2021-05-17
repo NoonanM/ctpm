@@ -57,19 +57,23 @@
 # }
 
 
-plot.variogram <- function(x, CTPM = NULL, col="black", col.ctpm = "red", xlim=NULL, ylim=NULL, ext=NULL, fraction = 1, ...){
+plot.variogram <- function(x, CTPM = NULL, col="black", col.CTPM = "red", fraction = 1, y.units = NULL, ...){
   
   #Convert to ctmm variogram object
-  SVF <- data.frame(SVF=x$SVF,
-                    DOF=x$DOF,
-                    lag=x$lag)
+  # SVF <- data.frame(SVF=x$SVF,
+  #                   DOF=x$DOF,
+  #                   lag=x$lag)
+  # 
+  # SVF <- ctmm:::new.variogram(SVF)
+  # 
+  # SVF@info$axes <- x@info$axes
   
-  SVF <- ctmm:::new.variogram(SVF)
   
-  SVF@info$axes <- x@info$axes
-  
-  
-  plot(SVF, CTPM, col.CTMM = col.ctpm, fraction = fraction)
+  ctmm:::plot.variogram(SVF,
+                        CTMM = CTPM,
+                        col.CTMM = col.CTPM,
+                        fraction = fraction,
+                        ...)
   
   
   #Old version of the function
