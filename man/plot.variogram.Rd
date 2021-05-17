@@ -7,36 +7,35 @@
 Produces plots of varigram objects (semi-variance vs. time lag) and model semi-variance functions, with approximate confidence intervals around the semi-variance estimates.
 }
 \usage{
-plot(x, CTPM=NULL, col="black", col.ctpm = "red", units = "Ma", ...)
+plot(x, CTPM=NULL, col="black", col.CTPM = "red", fraction = 1, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{A variogram object calculated using \code{\link{variogram}}.}
-  \item{CTPM}{A ctpm model object in the same format as the output of ctpm.fit.}
-  \item{col}{Color for the empirical variogram.}
-  \item{col.ctpm}{Color for the model.}
-  \item{units}{Character denoting the unit of time for the branch lengths. Defaults to million years from the present.}
-  \item{\dots}{ Additional \code{plot} function parameters.}
+  \item{CTPM}{A fitted ctpm model, or list of fitted models, in the same format as the output of \code{\link{ctpm.fit}}.}
+  \item{col}{Color for the empirical variogram. Can be an array.}
+  \item{col.CTPM}{Color for the model. Can be an array.}
+  \item{fraction}{The proportion of the variogram object, \code{variogram}, that will be plotted.}
+  \item{\dots}{ Additional arguments passed to \code{\link{ctmm::plot.variogram}}.}
   }
 
 \details{
 For highly irregularly phylogenetic distances with few species, it may be useful to set \code{complete = FALSE} to coarsen the variogram. When this is the cases, species are binned across lags, with the number of lags estimated using \code{nclass.scott}.
 }
 
-\value{
-Returns a plot of semi-variance vs. time lag, with the empirical variogram in black and the ctmm semi-variance function in red if specified. zoom includes a log-scale zoom slider to manipulate fraction.
-}
+\value{Returns a plot of semi-variance vs. time lag, with the empirical variogram in black and the \code{ctpm} semi-variance function in red if specified.}
+
 \references{
  M. J. Noonan, W. F. Fagan, and C. H. Fleming (in prep.) ``A semi-variance approach to visualising phylogenetic autocorrelation''.
 }
 
 \author{ M. J. Noonan, C. H. Fleming.}
 
-%\note{}
+\note{The errors of the empirical variogram are correlated. Smooth trends are not necessarily significant.}
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{ \code{vignette("variogram")}, \code{\link{variogram}}, \code{\link{nclass.scott}}. }
+\seealso{ \code{vignette("variogram")}, \code{\link{variogram}}, \code{\link{ctpm.fit}}. }
 
 \examples{
 #Load package and data

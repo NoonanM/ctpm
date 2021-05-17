@@ -1,5 +1,5 @@
 
-variogram <- function(data, phylo, weights = "BM", complete = FALSE, progress = TRUE, level = 0.95, units = "Ma", ...){
+variogram <- function(data, phylo, weights = "IID", complete = FALSE, units = "Ma", progress = TRUE,  ...){
   
   #For testing
   # data("moid_traits")
