@@ -18,7 +18,7 @@ variogram(data, phylo, weights = "IID",  units = "Ma", complete = FALSE, progres
   \item{units}{A character string defining the units of the branch lengths. Defaults to \code{"Ma"}.}
   \item{complete}{A logical value indicating whether the semi-variance is to be calculated across all possible lags. Defalts to \code{FALSE}.}
   \item{progress}{A logical value indicating whether to include a progress bar.}
-  \item{\dots}{ Additional arguments passed to \code{kmeans}.}
+  \item{\dots}{Additional arguments passed to \code{kmeans}.}
   }
 
 \details{
