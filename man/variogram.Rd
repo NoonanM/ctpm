@@ -23,11 +23,11 @@ variogram(data, phylo, weights = "IID",  units = "Ma", complete = FALSE, progres
 
 \details{
 \describe{
-\item{\code{weights}} {The weights for the semi-variance are calculated based on an assumption about the form of the the correlation matrix. If the phylogenetic process is Independent and Identically Distributed (IID), then it is sufficient to consider a correlation matrix, where the diagonal is 1 and the off-diagonal is \eqn{1/4} if species pair \eqn{(i,j)} and \eqn{(k,l)} share one species in common and 0 otherwise.
+\item{\code{weights}}{The weights for the semi-variance are calculated based on an assumption about the form of the the correlation matrix. If the phylogenetic process is Independent and Identically Distributed (IID), then it is sufficient to consider a correlation matrix, where the diagonal is 1 and the off-diagonal is \eqn{1/4} if species pair \eqn{(i,j)} and \eqn{(k,l)} share one species in common and 0 otherwise.
 
 If the phylogenetic process is BM, then it is sufficient to consider a correlation matrix where the diagonal is 1 and the off-diagonal is the squared proportion of time lag \eqn{\tau} during which the backward-in-time-forward-in-time tip-branch-tip trajectories correspond to the same species.}
 
-\item{\code{complete}} {If calculating all pairwaise phylogenetic distances results in highly irregular time series (which is usually the case), it is more useful to coarsen the variogram. This is the case when \code{complete = FALSE}. Species are binned across lags, with the number of lags estimated using \code{kmeans} clustering with n classes = \eqn{\sqrt(N)}.}
+\item{\code{complete}}{If calculating all pairwaise phylogenetic distances results in highly irregular time series (which is usually the case), it is more useful to coarsen the variogram. This is the case when \code{complete = FALSE}. Species are binned across lags, with the number of lags estimated using \code{kmeans} clustering with n classes = \eqn{\sqrt(N)}.}
 }
 }
 
