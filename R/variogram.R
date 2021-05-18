@@ -25,24 +25,18 @@ variogram <- function(data, phylo, weights = "IID", complete = FALSE, time.units
       CENTERS <- kmeans(LAGS,
                         centers = sqrt(length(LAGS))+1)$centers[,1]
       
-      CENTERS <- jitter(CENTERS)
-      
-      #Nested k-means to improve performance
-      TAU <- kmeans(LAGS,
-                    centers = CENTERS)$centers[,1]
-      
       # Remove redundant means and sort
-      TAU <- sort(unique(CLUST))
+      TAU <- sort(unique(CENTERS))
     }
     
     if(algorithm == "GMM"){
       
       #Gaussian Mixture model clustering
-      CLUST <- ClusterR::GMM(matrix(LAGS),
+      CENTERS <- ClusterR::GMM(matrix(LAGS),
                              gaussian_comps = sqrt(length(LAGS)))$centroids
       
       # Remove redundant means and sort
-      TAU <- sort(unique(CLUST))
+      TAU <- sort(unique(CENTERS))
     }
   }
   
