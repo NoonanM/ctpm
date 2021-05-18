@@ -20,7 +20,7 @@ variogram <- function(data, phylo, weights = "IID", complete = FALSE, time.units
   } else {
     LAGS <- DISTS$Freq
     
-    if(algorithm = "kmeans"){
+    if(algorithm == "kmeans"){
       
       #Nested k-means to improve performance
       TAU <- kmeans(LAGS,
@@ -32,8 +32,9 @@ variogram <- function(data, phylo, weights = "IID", complete = FALSE, time.units
       TAU <- sort(unique(CLUST))
     }
     
-    if(algorithm = "GMM"){
+    if(algorithm == "GMM"){
       
+      #Gaussian Mixture model clustering
       CLUST <- ClusterR::GMM(matrix(LAGS),
                              gaussian_comps = sqrt(length(LAGS)))$centroids
       
