@@ -1,5 +1,5 @@
 
-variogram <- function(data, phylo, weights = "IID", complete = FALSE, time.units = "Ma", trait.units = NULL,  progress = TRUE, ...){
+variogram <- function(data, phylo, weights = "IID", complete = FALSE, time.units = "Ma", trait.units = NULL,  progress = TRUE, algorithm = "GMM"){
   
   #For testing
   # data("moid_traits")
@@ -19,15 +19,27 @@ variogram <- function(data, phylo, weights = "IID", complete = FALSE, time.units
     TAU <- unique(DISTS$Freq)
   } else {
     LAGS <- DISTS$Freq
-    # TAU <- kmeans(LAGS,
-    #               centers = sqrt(length(LAGS))+1)$centers[,1]
     
+    if(algorithm = "kmeans"){
+      
+      #Nested k-means to improve performance
+      TAU <- kmeans(LAGS,
+                    centers = kmeans(LAGS,
+                                     centers = sqrt(length(LAGS))+1)$centers[,1]
+                    )$centers[,1]
+      
+      # Remove redundant means and sort
+      TAU <- sort(unique(CLUST))
+    }
     
-    CLUST <- ClusterR::GMM(matrix(LAGS),
-                           gaussian_comps = sqrt(length(LAGS)))$centroids
-    
-    # Remove redundant means and sort
-    TAU <- sort(unique(CLUST))
+    if(algorithm = "GMM"){
+      
+      CLUST <- ClusterR::GMM(matrix(LAGS),
+                             gaussian_comps = sqrt(length(LAGS)))$centroids
+      
+      # Remove redundant means and sort
+      TAU <- sort(unique(CLUST))
+    }
   }
   
   
