@@ -22,11 +22,14 @@ variogram <- function(data, phylo, weights = "IID", complete = FALSE, time.units
     
     if(algorithm == "kmeans"){
       
+      CENTERS <- kmeans(LAGS,
+                        centers = sqrt(length(LAGS))+1)$centers[,1]
+      
+      CENTERS <- jitter(CENTERS)
+      
       #Nested k-means to improve performance
       TAU <- kmeans(LAGS,
-                    centers = kmeans(LAGS,
-                                     centers = sqrt(length(LAGS))+1)$centers[,1]
-                    )$centers[,1]
+                    centers = CENTERS)$centers[,1]
       
       # Remove redundant means and sort
       TAU <- sort(unique(CLUST))
