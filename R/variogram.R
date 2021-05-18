@@ -18,12 +18,16 @@ variogram <- function(data, phylo, weights = "IID", complete = FALSE, time.units
   if(complete){
     TAU <- unique(DISTS$Freq)
   } else {
-    TAU <- DISTS$Freq
-    TAU <- sort(kmeans(TAU,
-                       centers = sqrt(length(TAU))+1, ...)$centers[,1])
+    LAGS <- DISTS$Freq
+    # TAU <- kmeans(LAGS,
+    #               centers = sqrt(length(LAGS))+1)$centers[,1]
     
-    # Remove redundant means
-    TAU <- unique(TAU)
+    
+    CLUST <- ClusterR::GMM(matrix(LAGS),
+                           gaussian_comps = sqrt(length(LAGS)))$centroids
+    
+    # Remove redundant means and sort
+    TAU <- sort(unique(CLUST))
   }
   
   
