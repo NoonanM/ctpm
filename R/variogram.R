@@ -33,7 +33,7 @@ variogram <- function(data, phylo, weights = "IID", complete = FALSE, time.units
       
       #Gaussian Mixture model clustering
       CENTERS <- ClusterR::GMM(matrix(LAGS),
-                             gaussian_comps = sqrt(length(LAGS)))$centroids
+                             gaussian_comps = sqrt(length(LAGS))+1)$centroids
       
       # Remove redundant means and sort
       TAU <- sort(unique(CENTERS))
