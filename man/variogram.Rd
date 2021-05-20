@@ -8,7 +8,7 @@ This function calculates the empirical variogram of phylogenetic data for visual
 One of two weighting algorithms can be used.
 }
 \usage{
-variogram(data, phylo, weights = "IID", complete = FALSE, time.units = "Ma", trait.units = NULL,  progress = TRUE, ...)
+variogram(data, phylo, weights = "IID", complete = FALSE, algorithm = "kmeans", time.units = "Ma", trait.units = NULL,  progress = TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -18,6 +18,7 @@ variogram(data, phylo, weights = "IID", complete = FALSE, time.units = "Ma", tra
   \item{time.units}{A character string defining the units of the branch lengths. Defaults to \code{"Ma"}.}
   \item{trait.units}{A character string defining the units of the trait being analysed. Defaults to uniteless.}
   \item{complete}{A logical value indicating whether the semi-variance is to be calculated across all possible lags. Defalts to \code{FALSE}.}
+  \item{algorithm}{A character string defining the algorithm to apply when calculating the time-lag bins. Can be one of \code{"kmeans"}, or \code{"GMM"}.}
   \item{progress}{A logical value indicating whether to include a progress bar.}
   \item{\dots}{Additional arguments passed to \code{kmeans}.}
   }
@@ -28,7 +29,7 @@ variogram(data, phylo, weights = "IID", complete = FALSE, time.units = "Ma", tra
 
 If the phylogenetic process is BM, then it is sufficient to consider a correlation matrix where the diagonal is 1 and the off-diagonal is the squared proportion of time lag \eqn{\tau} during which the backward-in-time-forward-in-time tip-branch-tip trajectories correspond to the same species.}
 
-\item{\code{complete}}{If calculating all pairwaise phylogenetic distances results in highly irregular time series (which is usually the case), it is more useful to coarsen the variogram. This is the case when \code{complete = FALSE}. Species are binned across lags, with the number of lags estimated using \code{kmeans} clustering with n classes = \eqn{\sqrt(N)}.}
+\item{\code{complete}}{If calculating all pairwaise phylogenetic distances results in highly irregular time series (which is usually the case), it is more useful to coarsen the variogram. This is the case when \code{complete = FALSE}. Species are binned across lags, with the number of lags estimated using either \code{kmeans} or Gaussian Mixture Modelling \code{GMM} clustering with n classes = \eqn{\sqrt(N)}.}
 }
 }
 
@@ -45,7 +46,7 @@ Returns a variogram object (class variogram) which is a dataframe containing the
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{ \code{vignette("variogram")}, \code{\link{plot.variogram}}, \code{\link{\%#\%}}, \code{\link{kmeans}}.}
+\seealso{ \code{vignette("variogram")}, \code{\link{plot.variogram}}, \code{\link{\%#\%}}, \code{\link{KMeans_rcpp}}, \code{\link{GMM}}.}
 
 \examples{
 #Load package and data

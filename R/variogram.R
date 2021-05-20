@@ -6,6 +6,9 @@ variogram <- function(data, phylo, weights = "IID", complete = FALSE, time.units
   # data("musteloids")
   # data <- moid_traits$SSD
   # phylo <- musteloids
+  # complete <-  FALSE
+  # algorithm <- "kmeans"
+  # progress <- TRUE
   
   SPECIES <- phylo$tip.label
   names(data) <- SPECIES
