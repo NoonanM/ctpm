@@ -25,9 +25,15 @@ variogram <- function(data, phylo, weights = "IID", complete = FALSE, time.units
     LAGS <- DISTS$Freq
     
     if(algorithm == "kmeans"){
+      N <- round(sqrt(length(LAGS))+1)
+
+      INIT <- matrix(seq(0,
+                         max(LAGS),
+                         length.out = N))
       
       CENTERS <- ClusterR::KMeans_rcpp(matrix(LAGS),
-                                       clusters = sqrt(length(LAGS))+1)$centroids
+                                       CENTROIDS = INIT,
+                                       clusters = N)$centroids
       
       CENTERS <- na.omit(CENTERS)[,1]
       # Remove redundant means and sort
