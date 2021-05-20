@@ -174,7 +174,9 @@ variogram <- function(data, phylo, weights = "IID", complete = FALSE, time.units
   }
   
   #Convert TAU for correct plotting
-  LAG <- TAU %#% time.units
+  LAG <- tryCatch({TAU %#% time.units}, error=function(err){TAU} ) 
+  
+
   
   SVF <- data.frame(SVF=GAMMA,DOF=DOF,lag=LAG)
   
@@ -187,6 +189,8 @@ variogram <- function(data, phylo, weights = "IID", complete = FALSE, time.units
   
   #Set the units of the trait
   if(is.null(trait.units)){SVF@info$axes <- "x"} else {SVF@info$axes <- trait.units}
+  
+  attr(SVF,"info")$lags <- time.units
   
   return(SVF)
 }
