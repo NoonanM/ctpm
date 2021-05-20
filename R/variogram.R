@@ -180,21 +180,18 @@ variogram <- function(data, phylo, weights = "IID", complete = FALSE, time.units
     
     UNITS <- "time"
     
-    return(LAG)
+    LAG
     
     }, error=function(err){TAU} )
   
   if(is.null(UNITS)){UNITS <- "unknown"}
 
   
-  SVF <- data.frame(SVF=GAMMA,DOF=DOF,lag=LAG)
+  SVF <- data.frame(SVF=GAMMA,
+                    DOF=DOF,
+                    lag=LAG)
   
-  # SVF <- data.frame(Distance = TAU,
-  #                   Gamma = GAMMA,
-  #                   CI_min = CI_min,
-  #                   CI_max = CI_max)
-  
-  SVF <- new.variogram(SVF)
+  SVF <- ctpm:::new.variogram(SVF)
   
   #Set the units of the trait
   if(is.null(trait.units)){SVF@info$axes <- "x"} else {SVF@info$axes <- trait.units}

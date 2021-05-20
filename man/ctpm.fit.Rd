@@ -14,7 +14,7 @@ variogram(data, phylo, model = NULL, time.units = "Ma")
   \item{data}{A vector of continuous species trait data. This vector needs to be of the same length and same order as phylo$tip.label. }
   \item{phylo}{An object of class 'phylo'.}
   \item{model}{The model to fit. Can be one of \code{"IID"}, \code{"BM"}, or \code{"OU"}.}
-  \item{units}{A character defining the units of the edge lengths of the phylogentic tree. Defaults to "Ma"}
+  \item{time.units}{A character defining the units of the edge lengths of the phylogentic tree. Defaults to "Ma"}
   }
 
 \details{

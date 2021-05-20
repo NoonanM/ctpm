@@ -2,7 +2,9 @@ ctpm.fit <- function(data, phylo, model = NULL, time.units = "Ma"){
   
   #Fit an IID model
   if(model == "IID"){
-    TIME <- 1/(1 %#% time.units)
+    TIME <- 1
+    TIME <- tryCatch({1/(1 %#% time.units)}, error=function(err){TIME})
+
     
     fit <- lm(data ~ 1)
     COV <- matrix(vcov(fit))
@@ -30,7 +32,8 @@ ctpm.fit <- function(data, phylo, model = NULL, time.units = "Ma"){
   
   #Fit the BM model
   if(model == "BM"){
-    TIME <- 1/(1 %#% time.units)
+    TIME <- 1
+    TIME <- tryCatch({1/(1 %#% time.units)}, error=function(err){TIME})    
     
     fit <- slouch::brown.fit(phy = phylo,
                              species = phylo$tip.label,
@@ -65,8 +68,8 @@ ctpm.fit <- function(data, phylo, model = NULL, time.units = "Ma"){
   
   #Fit the OU model
   if(model == "OU"){
-    
-    TIME <- 1/(1 %#% time.units)
+    TIME <- 1
+    TIME <- tryCatch({1/(1 %#% time.units)}, error=function(err){TIME})   
     
     fit <- slouch::slouch.fit(phy = phylo,
                               species = phylo$tip.label,
