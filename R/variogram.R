@@ -26,8 +26,7 @@ variogram <- function(data, phylo, weights = "IID", complete = FALSE, time.units
     if(algorithm == "kmeans"){
       
       CENTERS <- ClusterR::KMeans_rcpp(matrix(LAGS),
-                                       clusters = sqrt(length(LAGS))+1,
-                                       initializer = "quantile_init")$centroids
+                                       clusters = sqrt(length(LAGS))+1)$centroids
       
       CENTERS <- na.omit(CENTERS)[,1]
       # Remove redundant means and sort
