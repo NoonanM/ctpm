@@ -1,5 +1,5 @@
 
-variogram <- function(data, phylo, weights = "IID", complete = FALSE, time.units = "Ma", trait.units = NULL,  progress = TRUE, algorithm = "GMM"){
+variogram <- function(data, phylo, weights = "IID", complete = FALSE, time.units = "Ma", trait.units = NULL,  progress = TRUE, algorithm = "kmeans"){
   
   #For testing
   # data("moid_traits")
@@ -22,9 +22,11 @@ variogram <- function(data, phylo, weights = "IID", complete = FALSE, time.units
     
     if(algorithm == "kmeans"){
       
-      CENTERS <- kmeans(LAGS,
-                        centers = sqrt(length(LAGS))+1)$centers[,1]
+      CENTERS <- ClusterR::KMeans_rcpp(matrix(LAGS),
+                                       clusters = sqrt(length(LAGS))+1,
+                                       initializer = "quantile_init")$centroids
       
+      CENTERS <- na.omit(CENTERS)[,1]
       # Remove redundant means and sort
       TAU <- sort(unique(CENTERS))
     }
