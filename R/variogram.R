@@ -9,6 +9,7 @@ variogram <- function(data, phylo, weights = "IID", complete = FALSE, time.units
   # complete <-  FALSE
   # algorithm <- "kmeans"
   # progress <- TRUE
+  # weights = "IID"
   
   SPECIES <- phylo$tip.label
   names(data) <- SPECIES
@@ -178,6 +179,8 @@ variogram <- function(data, phylo, weights = "IID", complete = FALSE, time.units
   LAG <- tryCatch({LAG <- TAU %#% time.units
     
     UNITS <- "time"
+    
+    return(LAG)
     
     }, error=function(err){TAU} )
   
