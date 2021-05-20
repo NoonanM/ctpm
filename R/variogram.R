@@ -175,7 +175,7 @@ variogram <- function(data, phylo, weights = "IID", complete = FALSE, time.units
   
   #Convert TAU for correct plotting
   UNITS <- NULL
-  LAG <- tryCatch({TAU %#% time.units
+  LAG <- tryCatch({LAG <- TAU %#% time.units
     
     UNITS <- "time"
     
