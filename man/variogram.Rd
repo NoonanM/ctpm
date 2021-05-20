@@ -14,11 +14,11 @@ variogram(data, phylo, weights = "IID", complete = FALSE, algorithm = "GMM", tim
 \arguments{
   \item{data}{A vector of continuous species trait data. This vector needs to be of the same length and same order as phylo$tip.label.}
   \item{phylo}{An object of class 'phylo'.}
-  \item{weights}{The weights to apply when calculating the semi-variances. Can be one of \code{"IID""}, or \code{"BM"}. Defaults to \code{"IID"}.}
+  \item{weights}{The weights to apply when calculating the semi-variances. Can be one of \code{"IID"}, or \code{"BM"}. Defaults to \code{"IID"}.}
   \item{time.units}{A character string defining the units of the branch lengths. Defaults to \code{"Ma"}.}
   \item{trait.units}{A character string defining the units of the trait being analysed. Defaults to uniteless.}
   \item{complete}{A logical value indicating whether the semi-variance is to be calculated across all possible lags. Defalts to \code{FALSE}.}
-  \item{algorithm}{A character string defining the algorithm to apply when calculating the time-lag bins. Can be one of \code{"kmeans"}, or \code{"GMM"}, Defaults to \code{"GMM"}.}
+  \item{algorithm}{A character string defining the algorithm to apply when calculating the time-lag bins. Can be one of \code{"kmeans"}, or \code{"GMM"}.}
   \item{progress}{A logical value indicating whether to include a progress bar.}
   \item{\dots}{Additional arguments passed to \code{kmeans}.}
   }
