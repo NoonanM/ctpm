@@ -41,9 +41,9 @@ ctpm.fit <- function(data, phylo, model = NULL, time.units = "Ma"){
                              hessian = T)
     
     tau <- Inf; names(tau) <- "position"
-    SIGMA <- fit$evolpar$sigma2_y
+    SIGMA <- fit$evolpar$sigma2_y/2
     
-    COV <- -solve(fit$hessian)
+    COV <- -solve(fit$hessian)/4
     row.names(COV) <- "major"
     colnames(COV) <- "major"
     
