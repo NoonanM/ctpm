@@ -4,7 +4,7 @@ ctpm.fit <- function(data, phylo, model = NULL, time.units = "Ma"){
   if(model == "IID"){
     TIME <- 1
     TIME <- tryCatch({1/(1 %#% time.units)}, error=function(err){TIME})
-
+    
     
     fit <- lm(data ~ 1)
     COV <- matrix(vcov(fit))
@@ -23,9 +23,9 @@ ctpm.fit <- function(data, phylo, model = NULL, time.units = "Ma"){
                       AIC = AIC(fit),
                       BIC = BIC(fit))
     
-    FIT <- ctmm:::unit.ctmm(FIT,
-                            length = 1,
-                            time = TIME)
+    FIT <- unit.ctmm(FIT,
+                     length = 1,
+                     time = TIME)
     
   }
   
@@ -60,9 +60,9 @@ ctpm.fit <- function(data, phylo, model = NULL, time.units = "Ma"){
                       AIC = fit$modfit$AIC,
                       BIC = NULL)
     
-    FIT <- ctmm:::unit.ctmm(FIT,
-                            length = 1,
-                            time= TIME)
+    FIT <- unit.ctmm(FIT,
+                     length = 1,
+                     time= TIME)
     
   }
   
@@ -101,9 +101,9 @@ ctpm.fit <- function(data, phylo, model = NULL, time.units = "Ma"){
                       AIC = fit$modfit$AIC,
                       BIC = NULL)
     
-    FIT <- ctmm:::unit.ctmm(FIT,
-                            length = 1,
-                            time = TIME)
+    FIT <- unit.ctmm(FIT,
+                     length = 1,
+                     time = TIME)
     
   }
   
