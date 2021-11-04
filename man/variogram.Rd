@@ -46,7 +46,7 @@ Noonan, M. J., Fagan, W. F., and Fleming C. H. (2021) ``A semi-variance approach
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{\code{vignette("variograms")}, \code{\link{plot.variogram}}, \code{\link[ctmm]{\%#\%}}, \code{\link[ClusterR]{KMeans_rcpp}}, \code{\link[ClusterR]{GMM}}.}
+\seealso{\code{vignette("variograms", package = "ctpm")}, \code{\link{plot.variogram}}, \code{\link[ctmm]{\%#\%}}, \code{\link[ClusterR]{KMeans_rcpp}}, \code{\link[ClusterR]{GMM}}.}
 
 \examples{
 #Load package and data

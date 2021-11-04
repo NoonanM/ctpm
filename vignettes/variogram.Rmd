@@ -93,13 +93,12 @@ names(SSD) == musteloids$tip.label
 
 #Calculate and plot the variogram
 SVF <- variogram(moid_traits$SSD, musteloids, progress = F)
-plot(SVF, fraction = 1)
+plot(SVF)
 ```
 
 While variograms can be useful on their own, we can also fit evolutionary processes to the data and compare the semi variance functions of the fitted models to the empirical variogram. The correspondence between the fitted model and the empirical variogram can then be used to determine whether a given evolutionary model might be appropriate. Eventually, the `ctpm` package will have its own model fitting algorithms. For the time being, however, `ctpm` relies on the methods implemented in the `R` package `slouch` to fit these models via the `ctpm.fit` wrapper function. Let's fit IID and Brownian Motion (BM) evolutionary models to musteloid SSD and compare these against the empirical variogram.
 
 ```{r}
-
 #Fit the evolutionary models
 IID.FIT <- ctpm.fit(SSD, musteloids, model = "IID")
 BM.FIT <- ctpm.fit(SSD, musteloids, model = "BM")
@@ -113,7 +112,7 @@ BM.FIT$AIC
 plot(SVF,
      list(IID.FIT,
           BM.FIT),
-     col.CTMM = c("red",
+     col.CTPM = c("red",
                   "#046C9A"))
 legend("topleft",
        fill = c("red",
@@ -145,7 +144,7 @@ AIC based model selection suggests that an IID model is a better fit than BM, bu
 #      list(IID.FIT,
 #           BM.FIT,
 #           OU.FIT),
-#      col.CTMM = c("red",
+#      col.CTPM = c("red",
 #                   "purple",
 #                   "#046C9A"))
 # legend("topleft",

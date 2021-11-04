@@ -9,7 +9,7 @@ importFrom("methods", "new")
 
 #VARIOGRAM FUNCTIONS
 export(variogram)
-S3method(plot,variogram)
+S3method(plot,vg)
 
 
 #MODEL FITTING FUNCTIONS

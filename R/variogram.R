@@ -199,7 +199,7 @@ variogram <- function(data, phylo, weights = "IID", complete = FALSE, time.units
                     lag=LAG)
   
   #Convert to variogram class
-  SVF <- ctmm.variogram(SVF)
+  SVF <- new.vg(SVF)
   
   #Set the units of the trait
   if(is.null(trait.units)){SVF@info$axes <- "x"} else {SVF@info$axes <- trait.units}

@@ -1,5 +1,5 @@
-\name{plot.variogram}
-\alias{plot.variogram}
+\name{plot.vg}
+\alias{plot.vg}
 \encoding{UTF-8}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Plotting methods for variogram objects.}
@@ -7,22 +7,16 @@
 Produces plots of varigram objects (semi-variance vs. time lag) and model semi-variance functions, with approximate confidence intervals around the semi-variance estimates.
 }
 \usage{
-\S3method{plot}{variogram}(x,CTMM=NULL,level=0.95,units=TRUE,fraction=0.5,col="black",col.CTMM="red",xlim=NULL,
-     ylim=NULL,ext=NULL,...)
+\S3method{plot}{vg}(x, CTPM = NULL, col="black", col.CTPM = "red", fraction = 1, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{A \code{variogram} object calculated using \code{\link{variogram}}.}
-  \item{CTMM}{A \code{ctpm} evolutionary model object in the same format as the output of \code{ctpm.fit}.}
-  \item{level}{Confidence level of confidence bands (95\% default CIs). Can be an array.}
-  \item{units}{Convert axes to natural units.}
-  \item{fraction}{The proportion of the variogram object, \code{variogram}, that will be plotted.}
+  \item{CTPM}{A \code{ctpm} evolutionary model object in the same format as the output of \code{ctpm.fit}.}
   \item{col}{Color for the empirical variogram. Can be an array.}
-  \item{col.CTMM}{Color for the model. Can be an array.}
-  \item{xlim}{Range of lags to plot (in SI units).}
-  \item{ylim}{Range of semi-variance to plot (in SI units).}
-  \item{ext}{Plot extent alternative to \code{xlim} and \code{ylim} (see \code{\link{extent}}).}
-  \item{\dots}{Additional \code{plot} function parameters.}
+  \item{col.CTPM}{Color for the model. Can be an array.}
+  \item{fraction}{The proportion of the variogram object, \code{variogram}, that will be plotted.}
+  \item{\dots}{Additional \code{\link[ctmm]{plot.variogram}} function parameters.}
   }
 
 \details{
@@ -41,7 +35,7 @@ Noonan, M. J., Fagan, W. F., and Fleming C. H. (2021) ``A semi-variance approach
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{ \code{vignette("variograms")}, \code{\link{variogram}}, \code{\link{ctpm.fit}}. }
+\seealso{ \code{vignette("variograms", package = "ctpm")}, \code{\link{variogram}}, \code{\link{ctpm.fit}}. }
 
 \examples{
 #Load package and data
