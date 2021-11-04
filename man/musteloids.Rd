@@ -3,7 +3,7 @@
 \encoding{UTF-8}
 \docType{data}
 
-\title{Musteloidea phylogeny}
+\title{Musteloidea phylogeny.}
 
 \description{A phylogenetic tree of Musteloidea.}
 

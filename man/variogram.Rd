@@ -2,17 +2,18 @@
 \alias{variogram}
 \encoding{UTF-8}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Calculate an empirical variogram from phylogenetic data}
+\title{Calculate an empirical variogram from phylogenetic data.}
 \description{
 This function calculates the empirical variogram of phylogenetic data for visualizing stationary (time-averaged) autocorrelation structure.
 One of two weighting algorithms can be used.
 }
 \usage{
-variogram(data, phylo, weights = "IID", complete = FALSE, algorithm = "GMM", time.units = "Ma", trait.units = NULL,  progress = TRUE, ...)
+variogram(data, phylo, weights = "IID", complete = FALSE, time.units = "Ma", 
+          trait.units = NULL,  progress = TRUE, algorithm = "GMM")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{data}{A vector of continuous species trait data. This vector needs to be of the same length and same order as phylo$tip.label.}
+  \item{data}{A vector of continuous species trait data. This vector needs to be of the same length and same order as \code{phylo$tip.label}.}
   \item{phylo}{An object of class 'phylo'.}
   \item{weights}{The weights to apply when calculating the semi-variances. Can be one of \code{"IID"}, or \code{"BM"}. Defaults to \code{"IID"}.}
   \item{time.units}{A character string defining the units of the branch lengths. Defaults to \code{"Ma"}.}
@@ -20,7 +21,6 @@ variogram(data, phylo, weights = "IID", complete = FALSE, algorithm = "GMM", tim
   \item{complete}{A logical value indicating whether the semi-variance is to be calculated across all possible lags. Defalts to \code{FALSE}.}
   \item{algorithm}{A character string defining the algorithm to apply when calculating the time-lag bins. Can be one of \code{"kmeans"}, or \code{"GMM"}.}
   \item{progress}{A logical value indicating whether to include a progress bar.}
-  \item{\dots}{Additional arguments passed to \code{kmeans}.}
   }
 
 \details{
@@ -37,7 +37,7 @@ If the phylogenetic process is BM, then it is sufficient to consider a correlati
 Returns a variogram object (class variogram) which is a dataframe containing the time-lag, \code{lag}, the semi-variance estimate at that lag, \code{SVF}, and the degrees of freedom on the estimated semi-variance \code{DOF}.
 }
 \references{
- M. J. Noonan, W. F. Fagan, and C. H. Fleming (in prep.) ``A semi-variance approach to visualising phylogenetic autocorrelation''.
+Noonan, M. J., Fagan, W. F., and Fleming C. H. (2021) ``A semi-variance approach to visualising phylogenetic autocorrelation''. Methods in Ecology and Evolution, in press.
 }
 
 \author{ M. J. Noonan, C. H. Fleming.}
@@ -46,7 +46,7 @@ Returns a variogram object (class variogram) which is a dataframe containing the
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{ \code{vignette("variogram")}, \code{\link{plot.variogram}}, \code{\link{\%#\%}}, \code{\link{KMeans_rcpp}}, \code{\link{GMM}}.}
+\seealso{\code{vignette("variograms")}, \code{\link{plot.variogram}}, \code{\link[ctmm]{\%#\%}}, \code{\link[ClusterR]{KMeans_rcpp}}, \code{\link[ClusterR]{GMM}}.}
 
 \examples{
 #Load package and data

@@ -85,7 +85,7 @@ variogram <- function(data, phylo, weights = "IID", complete = FALSE, time.units
         PAIRS <- expand.grid(SUB$Var1,SUB$Var2)
         COV <- diag(nrow(PAIRS))
         ONE <- rep(1, nrow(COV))
-        W <- ctmm:::PDsolve(COV) %*% ONE
+        W <- PDsolve(COV) %*% ONE
         W <- W/sum(W)
       }
       
@@ -118,7 +118,7 @@ variogram <- function(data, phylo, weights = "IID", complete = FALSE, time.units
         # Vector of 1s
         ONE <- rep(1, nrow(COV))
         
-        W <- solve(COV) %*% ONE # can switch to ctmm:::PDsolve if the behaviour of solve is not ideal
+        W <- solve(COV) %*% ONE # can switch to ctmm's PDsolve if the behaviour of solve is not ideal
         W <- W/sum(W)#} else {
       }
       
@@ -155,7 +155,7 @@ variogram <- function(data, phylo, weights = "IID", complete = FALSE, time.units
         ONE <- rep(1, nrow(COV))
         
         #Calculate the weights
-        W <- ctmm:::PDsolve(COV) %*% ONE
+        W <- PDsolve(COV) %*% ONE
         W <- W/sum(W)
         
       }
@@ -193,11 +193,13 @@ variogram <- function(data, phylo, weights = "IID", complete = FALSE, time.units
   if(is.null(UNITS)){UNITS <- "unknown"}
 
   
+  #Store outputs asata frame
   SVF <- data.frame(SVF=GAMMA,
                     DOF=DOF,
                     lag=LAG)
   
-  SVF <- ctpm:::new.variogram(SVF)
+  #Convert to variogram class
+  SVF <- ctmm.variogram(SVF)
   
   #Set the units of the trait
   if(is.null(trait.units)){SVF@info$axes <- "x"} else {SVF@info$axes <- trait.units}

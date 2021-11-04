@@ -7,7 +7,7 @@
 This function is currently a wrapper for methods implemented in the package \code{\link{slouch}}.
 }
 \usage{
-variogram(data, phylo, model = NULL, time.units = "Ma")
+ctpm.fit(data, phylo, model = NULL, time.units = "Ma")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -25,7 +25,7 @@ Fits evolutionary models to species trait data using the methods implemented in 
 Returns a model fit object (class ctmm) that is used for plotting a fitted model against an emprical variogram. 
 }
 \references{
- M. J. Noonan, W. F. Fagan, and C. H. Fleming (in prep.) ``A semi-variance approach to visualising phylogenetic autocorrelation''.
+Noonan, M. J., Fagan, W. F., and Fleming C. H. (2021) ``A semi-variance approach to visualising phylogenetic autocorrelation''. Methods in Ecology and Evolution, in press.
 }
 
 \author{ M. J. Noonan, C. H. Fleming.}
@@ -34,7 +34,7 @@ Returns a model fit object (class ctmm) that is used for plotting a fitted model
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{ \code{vignette("variogram")}, \code{\link{plot.variogram}}, \code{\link{\%#\%}}. }
+\seealso{ \code{vignette("variograms")}, \code{\link{plot.variogram}}, \code{\link[ctmm]{\%#\%}}. }
 
 \examples{
 #Load package and data
@@ -49,7 +49,7 @@ SSD <- moid_traits$SSD
 SVF <- variogram(SSD, musteloids)
 
 #Fit the model
-FIT <- ctpm.fit(SSD, musteloids, model = "OU")
+FIT <- ctpm.fit(SSD, musteloids, model = "BM")
 
 
 #Plot the variogram and fitted model
